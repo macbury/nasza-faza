@@ -1,0 +1,30 @@
+<h1><%= @picture.name %></h1>
+<div class="popup" id="picture_<%= @picture.id %>" style="float:left">
+	<%= link_to @picture.rate_to_s, rate_school_picture_path(@school, @picture), :class => 'rate' %>
+	<ul>
+		<% Rate.names.each_with_index do | name, index | %>
+			<li>
+				<%= link_to name, rate_school_picture_path(:school_id => @picture.school_id, :id => @picture, :rate => index) %>
+			</li>
+		<% end %>
+	</ul>
+
+</div>
+<div class="clear"></div>
+<div style="text-align:center">
+	<%= image_tag @picture.url %><br/>
+	Dodane przez <%= @picture.user.login %> do kategori <%= @picture.category.name %>
+</div>
+
+<h2 id="comments_count">Komentarze</h2>
+
+<ul id="comments">
+	<%= render :partial => @picture.comments %>
+</ul>
+
+<%= render :partial => "/comments/form", :locals => { :commentable => @picture, :comment => Comment.new } %>
+
+<p>
+  <%= link_to "Destroy", [@school, @picture], :confirm => 'Are you sure?', :method => :delete  if own?(@picture) %> |
+  <%= link_to "View All", school_pictures_path(@school) %>
+</p>

@@ -1,0 +1,7 @@
+//window.location.hash = "comments_count";
+var comment_body = $(<%= render(:partial => @comment).inspect %>);
+comment_body.hide();
+
+$('#comments').append(comment_body);
+
+comment_body.slideDown();

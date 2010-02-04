@@ -1,0 +1,24 @@
+<h1>New movie</h1>
+
+<% form_for([@school,@movie], :html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :clip %><br />
+    <%= f.file_field :clip %>
+  </p>
+
+  <p>
+    <%= f.label :category_id, 'Kategoria' %><br />
+    <%= f.select :category_id, Category.all.map { |c| [c.name,c.id] } %>
+  </p>
+  <p>
+    <span class="button">
+    	<%= f.submit 'Wyślij na serwer!' %>
+    </span>
+  </p>
+<% end %>

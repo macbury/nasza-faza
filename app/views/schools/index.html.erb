@@ -1,0 +1,23 @@
+<h1>Szkoły</h1>
+
+<% content_for :head do %>
+	<%= @map.to_html %>
+<% end %>
+
+<%= link_to 'New school', new_school_path if admin? %>
+
+<div style="width: 30%; float:left; height: 500px; overflow-y: auto">
+	<h3>Skarżysko-Kamienna</h3>
+	<ul>
+		<% for school in @schools %>
+		<li>
+			<%= link_to school.name, "javascript:school_marker_#{school.id}_infowindow_function();" %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+
+<div style="float:right; width: 70%; height: 500px;">
+	<%= @map.div %>
+</div>
+<div class="clear"></div>

@@ -1,0 +1,15 @@
+<h3>Admini</h3>
+<% form_tag admin_users_path do %>
+	<p>
+		<%= text_field_tag 'login', '' %> <%= submit_tag 'Szukaj' %>
+	</p>
+<% end %>
+<ul>
+	<% for user in @admins %>
+	<li><%= user.login %> - <%= link_to 'Usuń przywilej admina', normal_user_path(user) %></li>
+	<% end %>
+</ul>
+
+<h3>Użytkownicy w serwisie</h3>
+
+<%= image_tag grow_users_path %>

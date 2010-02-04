@@ -1,0 +1,17 @@
+<div style="width: 280px;">
+	<h2><%= school.name %></h2>
+	
+	<div style="text-align:center">
+		<div style="width: 260px; height: 260px; background: url('<%= radar_chart_school_path(school) %>') no-repeat center center">
+		</div>
+		<span class="button">
+			<%= link_to 'Fotki i Fazy', school %>
+		</span>
+		 lub 
+		<span class="button special">
+
+			<%= link_to "Obserwuj szkołę!", [school, Follower.new], :method => :post %>
+
+		</span>
+	</div>
+</div>

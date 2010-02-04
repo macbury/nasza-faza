@@ -1,0 +1,33 @@
+
+<h1>Obserwowane szkoły</h1>
+<ul style="width: 50%">
+	<% for school in @schools %>
+		<li>
+			<%= link_to school.name, school %>
+			<span class="button special" style="float:right">
+				<%= link_to "Przestań obserwować tą szkołę!", [school, self.current_user.follower(school)], :method => :delete %>	
+			</span>
+			<div class="clear"></div>
+		</li>
+	<% end %>
+</ul>
+
+<div style="width:50%; float:left">
+	<h3>Ostatnie fazy</h3>
+	<% if @stories.empty? || @stories.size == 0 %>
+		<p style="text-align:center">Aktualnie brak faz!</p>
+	<% else %>
+		<%= render :partial => @stories %>
+	<% end %>
+</div>
+
+<div style="width:50%; float:right">
+	<h3>Ostatnie fotki</h3>
+	<% for picture in @pictures %>
+	<div style="float:left; margin-right: 5px; margin-bottom: 5px">
+		<%= link_to(image_tag(picture.url(:thumb)), school_picture_path(:school_id => picture.school_id, :id => picture.id)) %>
+	</div>
+	<% end %>
+	<div class="clear"></div>
+</div>
+<div class="clear"></div>

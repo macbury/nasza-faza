@@ -1,0 +1,24 @@
+<h3><%= @school.name %> - nowe fazy</h3>
+
+<div style="width:70%; float:left">
+	<%= render :partial => @stories %>
+	<%= will_paginate @stories %>
+</div>
+<div style="width:30%; float:right">
+	<h4>Kategorie</h4>
+	<ul>
+	<% Category.all.each do |category| %>
+		<li><%= link_to category.name, school_stories_path(@school, :category => category.id) %></li>
+	<% end %>
+	</ul>
+	<h4>Sortowanie</h4>
+	<ul>
+		<li><a href="#">Najnowsze</a></li>
+		<li><a href="#">Najlepsze</a></li>
+		<li><a href="#">Najgorsze</a></li>
+	</ul>
+</div>
+<div class="clear"></div>
+
+
+<%= link_to 'New story', new_school_story_path %>

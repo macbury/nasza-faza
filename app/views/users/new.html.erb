@@ -1,0 +1,42 @@
+<h2>Nowe konto</h2>
+<p>Wypełnij poniższe pola! Zajmie ci to mniej niż 15 sek!</p>
+<% form_for @user do |f| %>
+  <%= f.error_messages %>
+	<p>
+		<%= f.label :login %><br />
+		<%= f.text_field :login %>
+	</p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+	<p>
+		<label>Podaj kod z obrazka:</label><br/>
+		<%= recaptcha_tags :public_key => RECAPTCHA_PUBLIC_KEY %>
+	</p>
+	
+	<div style="height: 140px; overflow-y: scroll; padding: 5px 15px; border: 1px solid #ddd">
+		<p>Bądź sympatyczna/y i tolerancyjna/y - WARTO!</p>
+		
+		<p>A poza tym musisz wiedzieć, że:</p>
+		
+		<ul>
+			<li>Wszystkie treści publikowane w serwisie należą i wyrażają zdanie ich autorów i niekoniecznie pokrywają się ze zdaniem administratora serwisu.</li>
+			<li>Rejestrując się w tym serwisie zgadzasz się przestrzegać regulamin - publikacja treści obscenicznej, wulgarnej oraz takiej która narusza obowiązujące przepisy prawa jest ZABRONIONA.</li>
+			<li>Administrator serwisu zastrzega sobie prawo do usuwania poszczególnych wpisów oraz usunięcia konta użytkownika bez podania przyczyny.</li>
+		</ul>
+	</div>
+	
+	<p>
+		<%= f.check_box :regulamin %> akceptuje regulamin tego serwisu!
+	</p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

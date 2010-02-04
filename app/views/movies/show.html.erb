@@ -1,0 +1,51 @@
+<% content_for :head do %>
+<%= javascript_include_tag "flowplayer.min.js" %>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function () {
+		flowplayer("player", "/swf/flowplayer-3.1.3.swf");
+	});
+</script>
+<% end %>
+<h1><%= @movie.name %></h1>
+<div class="popup" id="movie_<%= @movie.id %>" style="float:left">
+	<%= link_to @movie.rate_to_s, rate_school_movie_path(@school, @movie), :class => 'rate' %>
+	<ul>
+		<% Rate.names.each_with_index do | name, index | %>
+			<li>
+				<%= link_to name, rate_school_movie_path(:school_id => @movie.school_id, :id => @movie, :rate => index) %>
+			</li>
+		<% end %>
+	</ul>
+
+</div>
+
+<div class="clear"></div>
+<div style="text-align:center">
+	<% if @movie.status.nil? %>
+		<%= image_tag "/images/ui/kolejka.jpg" %>
+		<p>Filmik jest w kolejce do konwersji... Może to zająć parę minut...</p>
+	<% elsif @movie.status == 1 %>
+		<%= image_tag "/images/ui/reksio_anim.gif" %>
+		<p>Trwa konwersja filmu... Może to potrwać parę minut...</p>
+	<% elsif @movie.status == 2 %>
+	<a  
+		 href="<%= @movie.clip.url %>"  
+		 style="display:block;width:320px;height:240px; margin: 0 auto;"  
+		 id="player"> 
+	</a>
+	<% end %>
+	Dodane przez <%= @movie.user.login %> do kategori <%= @movie.category.name %>
+</div>
+
+<h2 id="comments_count">Komentarze</h2>
+
+<ul id="comments">
+	<%= render :partial => @movie.comments %>
+</ul>
+
+<%= render :partial => "/comments/form", :locals => { :commentable => @movie, :comment => Comment.new } %>
+
+<p>
+  <%= link_to "Destroy", [@school, @movie], :confirm => 'Are you sure?', :method => :delete  if own?(@movie) %> |
+  <%= link_to "View All", school_movies_path(@movie) %>
+</p>

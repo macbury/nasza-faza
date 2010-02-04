@@ -1,0 +1,23 @@
+<h1>New story</h1>
+
+<% form_for([@school, @story]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+
+	<p>
+		<%= f.label :category_id, 'Kategoria' %><br/>
+		<%= f.select :category_id, Category.all.map { |category| [category.name, category.id] } %>
+	</p>
+
+  <p>
+    <span class="button">
+			<%= f.submit 'Dodaj!' %>
+		</span>
+  </p>
+<% end %>
+
+<%= link_to 'Back', school_stories_path(@school) %>

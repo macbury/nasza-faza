@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<%= display_meta_tags :site => 'Nasza Faza' %>
+	<%= yield :head %>
+	<%= rss_link('Obserwowane szkoły', user_url(self.current_user.login)) if logged_in? %>
+	<%= stylesheet_link_tag 'formtastic', 'formtastic_changes', 'main' %>
+	<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+	<%= javascript_include_tag 'jquery.js', 'jquery.form', 'rails', 'application' %>
+
+  </head>
+  <body>
+		<div id="loading">Praca w tle...</div>
+    <div id="container">
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <%- end -%>
+      <p class="menu">
+      	<% if logged_in? %>
+					Witaj <%= self.current_user.login %>! 
+					<% if admin? %>
+					 | <%= link_to 'Użytkownicy', users_path %>
+					 | <%= link_to 'Kategorie', categories_path %>
+					
+					<% end %>
+					 | <a href="http://naszafaza.blip.pl" style="color:red; font-weight: bold;">BLIP</a>
+					 | <%= link_to 'Szkoły', schools_path %>
+					 | <%= link_to 'Obserwowane', followed_schools_path %>
+					 | <%= link_to 'Wyloguj się', logout_path %>
+				<% else %>
+					<%= link_to 'Zaloguj się', login_path %> | <%= link_to 'Utwórz konto w 15 sek', register_path %>
+				<% end %>
+				
+      </p>
+      <%= yield %>
+    </div>
+  </body>
+</html>

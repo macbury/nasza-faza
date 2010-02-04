@@ -1,0 +1,15 @@
+<% if logged_in? %>
+	<% form_for_commentable commentable, comment do |f| %>
+	  <%= f.error_messages %>
+	  <p>
+	    <%= f.text_area :body %>
+	  </p>
+	  <p style="text-align:right">
+	  	<span class="button">
+				<%= f.submit 'Dodaj!' %>
+			</span>
+	  </p>
+	<% end %>
+<% else %>
+	<h4>Aby dodać komentarz musisz się zalogować</h4>
+<% end %>

@@ -1,0 +1,59 @@
+<h2><%= @school.name %></h2>
+
+<p>
+	<span class="button">
+		<%= link_to 'Dodaj historyjkę', new_school_story_path(@school) %>
+	</span>
+	<span class="button">
+		<%= link_to 'Dodaj fotkę', new_school_picture_path(@school) %>
+	</span>
+	<span class="button">
+		<%= link_to 'Dodaj filmik', new_school_movie_path(@school) %>
+	</span>
+	<span class="button special">
+		<% if logged_in? && self.current_user.follow?(@school) %>
+		<%= link_to "Przestań obserwować szkołę!", [@school, self.current_user.follower(@school)], :method => :delete %>	
+		<% else %>
+		<%= link_to "Obserwuj szkołę!", [@school, Follower.new], :method => :post %>
+		<% end %>
+	</span>
+</p>
+
+<div style="width:50%; float:left">
+	<h3>Ostatnie fazy</h3>
+	<% if @stories.empty? || @stories.size == 0 %>
+		<p style="text-align:center">Aktualnie brak faz!</p>
+	<% else %>
+		<%= render :partial => @stories %>
+	<% end %>
+	<p style="text-align:center">
+	<%= link_to 'Reszta faz', school_stories_path(@school) %>
+	</p>
+</div>
+
+<div style="width:50%; float:right">
+	<h3>Statystyki</h3>
+	<div style="text-align:center">
+		<%= render_chart(@school) %>
+	</div>
+	<h3>Ostatnie fotki</h3>
+	<% for picture in @pictures %>
+	<div style="float:left; margin-right: 5px; margin-bottom: 5px">
+		<%= link_to(image_tag(picture.url(:thumb)), [@school, picture]) %>
+	</div>
+	<% end %>
+	<div class="clear"></div>
+	<h3>Ostatnie Filmiki</h3>
+	<% for movie in @movies %>
+	<div style="float:left; margin-right: 5px; margin-bottom: 5px">
+		<%= link_to(image_tag(movie.thumb.url), [@school, movie]) %>
+	</div>
+	<% end %>
+	<div class="clear"></div>
+</div>
+<div class="clear"></div>
+
+<% if admin? %>
+	<%= link_to 'Edit', edit_school_path(@school) %> |
+<% end %>
+<%= link_to 'Back', schools_path %>

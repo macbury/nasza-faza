@@ -1,0 +1,19 @@
+<div style="margin-bottom: 10px; font-size: 11px" id="story_<%= story.id %>">
+	<div>
+		<div class="popup">
+			<%= link_to story.rate_to_s, rate_school_story_path(:school_id => story.school_id, :id => story), :class => 'rate' %>
+			<ul>
+				<% Rate.names.each_with_index do | name, index | %>
+					<li>
+						<%= link_to name, rate_school_story_path(:school_id => story.school_id, :id => story, :rate => index) %>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+		<%= link_to "##{story.id}", school_story_path(:school_id => story.school_id, :id => story) %> dodano <%= distance_of_time_in_words_to_now story.created_at, true %> temu przez <b><%= story.user.login %></b>. Kategoria <%= story.category.name %> 
+	
+	</div>
+	
+	<%= simple_format story.body %>
+
+</div>

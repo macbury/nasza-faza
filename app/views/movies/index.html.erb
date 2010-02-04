@@ -1,0 +1,8 @@
+<h1>Filmiki</h1>
+<% for movie in @movies %>
+	<%= link_to image_tag(movie.thumb.url), [@school, movie] %>
+<% end %>
+<div class="clear"></div>
+<span class="button">
+	<%= link_to 'Dodaj filmik', new_school_movie_path(@school) %>
+</span>

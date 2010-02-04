@@ -1,0 +1,13 @@
+<h1>Historyjka</h1>
+<%= render :partial => @story %>
+
+<h2 id="comments_count">Komentarze</h2>
+
+<ul id="comments">
+	<%= render :partial => @story.comments %>
+</ul>
+
+<%= render :partial => "/comments/form", :locals => { :commentable => @story, :comment => Comment.new } %>
+
+<%= link_to 'Edit', edit_school_story_path(@school, @story) %> |
+<%= link_to 'Back', school_stories_path(@school) %>

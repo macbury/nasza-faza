@@ -1,0 +1,5 @@
+<h1>Obrazki</h1>
+<% for picture in @pictures %>
+	<%= link_to image_tag(picture.url(:thumb)), [@school, picture] %>
+<% end %>
+

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  historable_id: 1
+  historable_type: MyString
+  school_id: 1
+
+two:
+  name: MyString
+  historable_id: 1
+  historable_type: MyString
+  school_id: 1
